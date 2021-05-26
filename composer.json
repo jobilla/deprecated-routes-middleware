@@ -1,0 +1,13 @@
+{
+    "name": "jobilla/deprecated-routes-middleware",
+    "description": "A Laravel middleware to mark routes/endpoints as deprecated",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Hakan Aktas",
+            "email": "iletisim@hakanaktas.com.tr"
+        }
+    ],
+    "require": {}
+}

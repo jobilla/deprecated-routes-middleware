@@ -5,6 +5,10 @@ namespace Jobilla\DeprecatedRoutes\Http\Middlewares;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Log;
+use Jobilla\DeprecatedRoutes\Events\RouteIsDeprecated;
 
 class DeprecatedRoute
 {
@@ -26,9 +30,34 @@ class DeprecatedRoute
         /** @var \Illuminate\Http\Response $response */
         $response = $next($request);
 
+        $this->logDeprecatedRequest($request);
+        $this->fireDeprecationEvent($request, $response);
+
         $response->header(static::HEADER_NAME, $this->getTimestampString($deprecatedAt));
 
         return $response;
+    }
+
+    protected function logDeprecatedRequest(Request $request)
+    {
+        $level = Config::get('deprecated_routes.log_level');
+
+        if ($level === false) {
+            return;
+        }
+
+        Log::log($level, 'Deprecated route on ' . $request->path() . ' was requested.');
+    }
+
+    protected function fireDeprecationEvent(Request $request, Response $response)
+    {
+        $enabled = Config::get('deprecated_routes.fire_event');
+
+        if ($enabled !== true) {
+            return;
+        }
+
+        Event::dispatch(new RouteIsDeprecated($request, $response));
     }
 
     protected function getTimestampString($deprecatedAt): string

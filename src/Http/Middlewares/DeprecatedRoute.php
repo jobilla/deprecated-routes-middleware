@@ -33,12 +33,10 @@ class DeprecatedRoute
 
     protected function getTimestampString($deprecatedAt): string
     {
-        if (is_string($deprecatedAt)) {
-            $datetime = Carbon::createFromFormat('Y-m-d', $deprecatedAt);
-        } elseif ($deprecatedAt instanceof Carbon) {
-            $datetime = $deprecatedAt->startOfDay();
-        } else {
-            throw new \Exception('Deprecate date either has to be a Y-m-d date string or a Carbon instance.');
+        try {
+            $datetime = Carbon::createFromFormat('Y-m-d', $deprecatedAt)->startOfDay();
+        } catch (\Exception $e) {
+            throw new \Exception('Deprecate date has to be a date string in Y-m-d format.', 0, $e);
         }
 
         return $datetime->toIso8601String();

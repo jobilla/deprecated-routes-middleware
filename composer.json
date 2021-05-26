@@ -18,8 +18,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Jobilla\\DeprecatedRoutes\\": "src/"
+            "Jobilla\\DeprecatedRoutes\\": "src/",
+            "Tests\\": "tests/"
         }
     },
-    "minimum-stability": "dev"
+    "minimum-stability": "dev",
+    "require-dev": {
+        "phpunit/phpunit": "9.5.x-dev"
+    }
 }

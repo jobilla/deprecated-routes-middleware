@@ -9,6 +9,11 @@ use Illuminate\Http\Response;
 class DeprecatedRoute
 {
     /**
+     * @var string
+     */
+    public const HEADER_NAME = 'X-Deprecated-At';
+
+    /**
      * Handle an incoming request.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -21,7 +26,7 @@ class DeprecatedRoute
         /** @var \Illuminate\Http\Response $response */
         $response = $next($request);
 
-        $response->header('X-Deprecated-At', $this->getTimestampString($deprecatedAt));
+        $response->header(static::HEADER_NAME, $this->getTimestampString($deprecatedAt));
 
         return $response;
     }

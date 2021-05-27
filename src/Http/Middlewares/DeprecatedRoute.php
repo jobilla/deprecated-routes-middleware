@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Log;
 use Jobilla\DeprecatedRoutes\Events\RouteIsDeprecated;
+use Jobilla\DeprecatedRoutes\Exceptions\MalformedParameterException;
 
 class DeprecatedRoute
 {
@@ -65,7 +66,7 @@ class DeprecatedRoute
         try {
             $datetime = Carbon::createFromFormat('Y-m-d', $deprecatedAt)->startOfDay();
         } catch (\Exception $e) {
-            throw new \Exception('Deprecate date has to be a date string in Y-m-d format.', 0, $e);
+            throw new MalformedParameterException('Deprecate date has to be a date string in Y-m-d format.', 0, $e);
         }
 
         return $datetime->toIso8601String();

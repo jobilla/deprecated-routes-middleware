@@ -2,15 +2,23 @@
 
 namespace Jobilla\DeprecatedRoutes\Events;
 
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-
 class RouteIsDeprecated
 {
-    public Request $request;
-    public Response $response;
+    /**
+     * @var \Illuminate\Http\Request
+     */
+    public $request;
 
-    public function __construct(Request $request, Response $response)
+    /**
+     * @var \Illuminate\Http\Response
+     */
+    public $response;
+
+    /**
+     * @param \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Response $response
+     */
+    public function __construct($request, $response)
     {
         $this->request = $request;
         $this->response = $response;

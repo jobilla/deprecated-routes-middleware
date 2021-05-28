@@ -73,7 +73,7 @@ class DeprecatedRoute
         try {
             $datetime = Carbon::createFromFormat('Y-m-d', $deprecatedAt)->startOfDay();
         } catch (\Exception $e) {
-            throw new MalformedParameterException('Deprecate date has to be a date string in Y-m-d format.', 0, $e);
+            throw new MalformedParameterException('Deprecation date must be a date string in Y-m-d format.', 0, $e);
         }
 
         return $datetime->toIso8601String();

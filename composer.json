@@ -1,5 +1,6 @@
 {
     "name": "jobilla/deprecated-routes-middleware",
+    "version": "1.0.0",
     "description": "A Laravel middleware to mark routes/endpoints as deprecated",
     "type": "library",
     "license": "MIT",
@@ -9,5 +10,32 @@
             "email": "iletisim@hakanaktas.com.tr"
         }
     ],
-    "require": {}
+    "require": {
+        "php": "^7.4|^8.0",
+        "nesbot/carbon": "^2.0",
+        "laravel/framework": "^6.0|^7.0|^8.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "9.5.x-dev",
+        "orchestra/testbench": "^6.18"
+    },
+    "autoload": {
+        "psr-4": {
+            "Jobilla\\DeprecatedRoutes\\": "src/",
+            "Tests\\": "tests/"
+        }
+    },
+    "minimum-stability": "stable",
+    "scripts": {
+        "post-autoload-dump": [
+            "@php ./vendor/bin/testbench package:discover --ansi"
+        ]
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Jobilla\\DeprecatedRoutes\\DeprecatedRoutesProvider"
+            ]
+        }
+    }
 }

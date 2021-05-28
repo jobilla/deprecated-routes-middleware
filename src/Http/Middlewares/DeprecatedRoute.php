@@ -48,7 +48,7 @@ class DeprecatedRoute
             return;
         }
 
-        Log::log($level, 'Deprecated route on ' . $request->path() . ' was requested.');
+        Log::log($level, 'Deprecated route was requested.', ['path' => $request->path()]);
     }
 
     /**

@@ -57,9 +57,7 @@ class DeprecatedRoute
      */
     protected function fireDeprecationEvent($request, $response)
     {
-        $enabled = Config::get('deprecated_routes.fire_event');
-
-        if (!$enabled) {
+        if (!Config::get('deprecated_routes.fire_event')) {
             return;
         }
 

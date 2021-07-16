@@ -14,7 +14,7 @@ class DeprecatedRoute
     /**
      * @var string
      */
-    public const HEADER_NAME = 'X-Deprecated-At';
+    public const DEFAULT_HEADER_NAME = 'X-Deprecated-At';
 
     /**
      * Handle an incoming request.
@@ -32,7 +32,7 @@ class DeprecatedRoute
         $this->logDeprecatedRequest($request);
         $this->fireDeprecationEvent($request, $response);
 
-        $response->headers->set(static::HEADER_NAME, $this->getTimestampString($deprecatedAt));
+        $response->headers->set($this->getHeaderName(), $this->getTimestampString($deprecatedAt));
 
         return $response;
     }
@@ -62,6 +62,14 @@ class DeprecatedRoute
         }
 
         Event::dispatch(new RouteIsDeprecated($request, $response));
+    }
+
+    /**
+     * @return string
+     */
+    protected function getHeaderName(): string
+    {
+        return Config::get('deprecated_routes.header_name', static::DEFAULT_HEADER_NAME);
     }
 
     /**

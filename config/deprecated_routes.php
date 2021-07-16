@@ -3,6 +3,11 @@
 return [
 
     /*
+     * Custom header name. `null` will use the default name defined in the middleware.
+     */
+    'header_name' => null,
+
+    /*
      * Enabling this option will cause the middleware to dispatch an event every time a deprecated route is visited.
      */
     'fire_event' => true,

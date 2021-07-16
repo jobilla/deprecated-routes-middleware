@@ -31,11 +31,11 @@ class DeprecatedRouteTest extends TestCase
             return $response;
         }, $deprecatedAt);
 
-        $this->assertTrue($response->headers->has(DeprecatedRoute::HEADER_NAME));
+        $this->assertTrue($response->headers->has(DeprecatedRoute::DEFAULT_HEADER_NAME));
 
         $this->assertEquals(
             Carbon::createFromFormat('Y-m-d', $deprecatedAt)->startOfDay()->toIso8601String(),
-            $response->headers->get(DeprecatedRoute::HEADER_NAME)
+            $response->headers->get(DeprecatedRoute::DEFAULT_HEADER_NAME)
         );
     }
 
@@ -124,5 +124,31 @@ class DeprecatedRouteTest extends TestCase
         $middleware->handle($request, function ($request) use ($response) {
             return $response;
         }, $deprecatedAt);
+    }
+
+    /** @test */
+    public function it_should_use_the_config_option_for_header_name()
+    {
+        $middleware = new DeprecatedRoute();
+
+        Config::set('deprecated_routes.log_level', false);
+        Config::set('deprecated_routes.fire_event', false);
+        Config::set('deprecated_routes.header_name', 'This-Endpoint-Is-Discouraged-Since');
+
+        $request = Request::create('/', 'GET');
+        $response = new Response('');
+
+        $deprecatedAt = '2020-10-06';
+
+        $middleware->handle($request, function ($request) use ($response) {
+            return $response;
+        }, $deprecatedAt);
+
+        $this->assertTrue($response->headers->has('This-Endpoint-Is-Discouraged-Since'));
+
+        $this->assertEquals(
+            Carbon::createFromFormat('Y-m-d', $deprecatedAt)->startOfDay()->toIso8601String(),
+            $response->headers->get('This-Endpoint-Is-Discouraged-Since')
+        );
     }
 }

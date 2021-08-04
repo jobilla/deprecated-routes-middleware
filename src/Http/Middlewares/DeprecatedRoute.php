@@ -69,7 +69,7 @@ class DeprecatedRoute
      */
     protected function getHeaderName(): string
     {
-        return Config::get('deprecated_routes.header_name', static::DEFAULT_HEADER_NAME);
+        return Config::get('deprecated_routes.header_name', static::DEFAULT_HEADER_NAME) ?? static::DEFAULT_HEADER_NAME;
     }
 
     /**

@@ -1,11 +1,13 @@
 <?php
 
+use Jobilla\DeprecatedRoutes\Http\Middlewares\DeprecatedRoute;
+
 return [
 
     /*
-     * Custom header name. `null` will use the default name defined in the middleware.
+     * Custom header name.
      */
-    'header_name' => null,
+    'header_name' => DeprecatedRoute::DEFAULT_HEADER_NAME,
 
     /*
      * Enabling this option will cause the middleware to dispatch an event every time a deprecated route is visited.

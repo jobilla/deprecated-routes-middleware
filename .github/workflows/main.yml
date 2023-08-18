@@ -26,5 +26,6 @@ jobs:
       # Runs a single command using the runners shell
       - name: PHPUnit (php-actions)
         uses: php-actions/phpunit@v2
+        permissions: write-all
         with:
           php_version: 8.2

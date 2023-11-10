@@ -11,10 +11,11 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+# All permissions are granted read access
+permissions: read-all
+
 jobs:
   test:
-    permissions:
-      packages: write
     runs-on: ubuntu-latest
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it

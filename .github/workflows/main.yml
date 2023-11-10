@@ -11,6 +11,9 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+# All permissions are granted read access
+permissions: read-all
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -19,10 +22,12 @@ jobs:
       - uses: actions/checkout@v2
       
       - name: Install Composer packages
-        uses: MilesChou/composer-action/7.4@master
+        uses: MilesChou/composer-action/8.2@master
         with:
           args: install
 
       # Runs a single command using the runners shell
       - name: PHPUnit (php-actions)
         uses: php-actions/phpunit@v2
+        with:
+          php_version: 8.2

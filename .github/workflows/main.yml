@@ -13,6 +13,8 @@ on:
 
 jobs:
   test:
+    permissions:
+      packages: write
     runs-on: ubuntu-latest
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it

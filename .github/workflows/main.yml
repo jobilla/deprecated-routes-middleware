@@ -19,7 +19,7 @@ jobs:
       - uses: actions/checkout@v2
       
       - name: Install Composer packages
-        uses: MilesChou/composer-action/7.4@master
+        uses: MilesChou/composer-action/8.1@master
         with:
           args: install
 
